@@ -5,7 +5,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var mongojs = require("mongojs");
 
-// require Saved schema for mongodb
+// require Saved schema for mongodb that will be used below in routes section
 var Saved = require("./models/Saved");
 
 // create express and create port to listen on
