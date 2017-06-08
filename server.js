@@ -33,6 +33,13 @@ db.once("open", function(){
 	console.log("Mongoose connection successful.");
 });
 
+// ------ ROUTES ------ //
+
+// sending homepage to index.html file which will link to bundle.js
+app.get("/", function(req, res){
+	res.sendFile(__dirname + "/public/index.html");
+});
+
 
 
 // listening port for localhost
