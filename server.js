@@ -9,7 +9,7 @@ var Article = require("./models/model");
 
 // Create Instance of Express
 var app = express();
-var PORT = process.env.PORT || 3000; // Sets an initial port. We'll use this later in our listener
+var PORT = process.env.PORT || 3000;
 
 // Run Morgan for Logging
 app.use(logger("dev"));
@@ -21,9 +21,15 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static("./public"));
 
 // -------------------------------------------------
+var databaseUri = "mongodb://localhost/nyt_react";
 
+if (process.env.MONGODB_URI) {
+	mongoose.connect(process.env.MONGODB_URI);
+}
+else {
+	mongoose.connect(databaseUri);
+}
 // MongoDB Configuration configuration
-mongoose.connect("mongodb://admin:reactrocks@ds023593.mlab.com:23593/heroku_pg676kmk");
 var db = mongoose.connection;
 
 db.on("error", function(err) {
@@ -33,7 +39,6 @@ db.on("error", function(err) {
 db.once("open", function() {
   console.log("Mongoose connection successful.");
 });
-
 
 // -------------------------------------------------
 
@@ -87,7 +92,6 @@ app.delete("/api/saved/", function(req, res) {
 app.get("*", function(req, res) {
   res.sendFile(__dirname + "/public/index.html");
 });
-
 
 // -------------------------------------------------
 
